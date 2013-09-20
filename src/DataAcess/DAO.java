@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
 /**
  *
  * @author Aline
@@ -22,7 +21,7 @@ public class DAO {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-           conexao = DriverManager.getConnection("jdbc:mysql://localhost/testeconexao", "root", "");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost/testeconexao", "root", "");
         } catch (Exception ex) {
 
             System.err.print(ex.getMessage());

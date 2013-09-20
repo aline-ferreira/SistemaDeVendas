@@ -16,8 +16,6 @@ public class Telefone {
     public Telefone() {
     }
 
-    
-
     public int getTelefone() {
         return Telefone;
     }
@@ -59,5 +57,4 @@ public class Telefone {
         }
         return true;
     }
-    
 }

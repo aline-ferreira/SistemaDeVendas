@@ -39,15 +39,15 @@ public class Pessoa {
         return nome;
     }
 
-    public void setNome(String nome)throws Exception {
+    public void setNome(String nome) throws Exception {
         Pattern Nome = Pattern.compile("[\\w\\s]{3,}");
         Matcher verifica = Nome.matcher(nome);
 
         if (verifica.matches()) {
             this.nome = nome;
-        }else{
-             throw new Exception("Formato de nome Inválido!");
-            
+        } else {
+            throw new Exception("Formato de nome Inválido!");
+
         }
     }
 
@@ -72,7 +72,7 @@ public class Pessoa {
         if (codigo >= 0) {
             this.codigo = codigo;
         } else {
-            throw new Exception("Codigo Inválido!"); 
+            throw new Exception("Codigo Inválido!");
         }
     }
 

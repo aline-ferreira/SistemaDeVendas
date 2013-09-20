@@ -4,7 +4,10 @@
  */
 package DataAcess;
 
+
+import DomainModel.ItemVenda;
 import DomainModel.Pessoa;
+import DomainModel.Produto;
 import java.sql.PreparedStatement;
 import DomainModel.Venda;
 import java.sql.Connection;
@@ -43,7 +46,7 @@ public class VendaDAO extends DAO {
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
                 }
-            //    Salvar(obj.getPessoa());
+                //    Salvar(obj.getPessoa());
                 return true;
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -112,10 +115,10 @@ public class VendaDAO extends DAO {
             System.err.println(ex.getMessage());
             return null;
         }
-     }
-    
+    }
+
     //Listar
-      public List<Venda> ListarVendas() {
+    public List<Venda> ListarVendas() {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from Venda");
 
@@ -124,13 +127,13 @@ public class VendaDAO extends DAO {
             List<Venda> lista = new ArrayList<Venda>();
 
             while (resultado.next()) {
-                  Venda obj = new Venda();
-                
+                Venda obj = new Venda();
+
                 obj.setCodigo(resultado.getInt("codVenda"));
                 obj.setValorTotal(resultado.getDouble("valor"));
                 obj.setData(resultado.getDate("data"));
 
-                
+
 
                 lista.add(obj);
             }
@@ -142,5 +145,33 @@ public class VendaDAO extends DAO {
         }
     }
     
-}
+     private void SalvarItemVenda(ItemVenda obj,Venda venda ){
+       
+         Produto produto= new Produto();
+         produto=obj.getProduto();
+         
+        if (obj.getCodigo() == 0) {
+            try {
+                PreparedStatement sql = getConexao().prepareStatement("insert into itemVenda(codVenda,codProduto, quantidade) values(?,?,?)");
+                sql.setInt(1, venda.getCodigo());
+                sql.setInt(2, produto.getCodigo());
+                sql.setInt(3, obj.getQuantidade());
+                sql.executeUpdate();
 
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        } else {
+            try {
+                PreparedStatement sql = getConexao().prepareStatement("update emails set codVenda = ?, codProduto = ? quantidade=? where codItemVenda= ?");
+                sql.setInt(1, venda.getCodigo());
+                sql.setInt(2, produto.getCodigo());
+                sql.setInt(3, obj.getQuantidade());
+                sql.setInt(4, obj.getCodigo());
+                sql.executeQuery();
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+    }
+}

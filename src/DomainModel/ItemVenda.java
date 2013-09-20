@@ -11,9 +11,19 @@ import java.util.Objects;
  * @author Aline
  */
 public class ItemVenda {
+     private int codigo;
      private Produto produto;
      private int quantidade;
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
      
+   
 
     public Produto getProduto() {
         return produto;
