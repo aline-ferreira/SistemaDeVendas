@@ -5,10 +5,12 @@
 package acessandobd;
 
 import DataAcess.PessoaDAO;
+import DataAcess.ProdutoDAO;
 import DomainModel.Email;
 import DomainModel.Endereco;
 import DomainModel.Pessoa;
 import DomainModel.Telefone;
+import DomainModel.Produto;
 import java.util.Date;
 
 /**
@@ -24,9 +26,10 @@ public class AcessandoBD {
     {
         // TODO code application logic here
         Pessoa pessoa = new Pessoa();
+        Produto produto= new Produto();
         
         
-        Telefone tel= new Telefone();
+       /* Telefone tel= new Telefone();
         Telefone tel2= new Telefone();
         
         Email email = new Email();
@@ -72,6 +75,11 @@ public class AcessandoBD {
         
         
         PessoaDAO dao = new PessoaDAO();
-        dao.Salvar(pessoa);
+        dao.Salvar(pessoa);*/
+        produto.setNome("notbook");
+        produto.setPreco(999.00);
+        ProdutoDAO dao=new ProdutoDAO();
+        dao.SalvarProduto(produto);
+        
     }
 }

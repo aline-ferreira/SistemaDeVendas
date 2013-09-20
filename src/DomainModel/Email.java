@@ -25,13 +25,13 @@ public class Email {
         return codigo;
     }
 
-    public void setCodigo(int codigo)throws Exception {
+    public void setCodigo(int codigo) throws Exception {
         if (codigo >= 0) {
             this.codigo = codigo;
-        }else {
+        } else {
             throw new Exception("Codigo Inválido!");
-            
-          }
+
+        }
     }
 
     public String getEmail() {
@@ -40,15 +40,16 @@ public class Email {
     }
 
     public void setEmail(String email) {
-        /*Pattern patternEmail;
-         patternEmail = Pattern.compile("A-Za-z 0-9\\._-]{3,250}+@[a-zA-Z]+\\.[a-zA-Z]+");
-         Matcher comparar;
-         comparar = patternEmail.matcher(email);
-         if (comparar.matches()) {*/
-        this.email = email;
-        // }
+        Pattern patternEmail;
+        patternEmail = Pattern.compile("[a-zA-Z0-9\\-_.]{3,250}@[\\d\\w]+.[\\w.]+");
+        Matcher comparar;
+        comparar = patternEmail.matcher(email);
+        if (comparar.matches()) {
+            this.email = email;
+        }
 
     }
+    //hash code
 
     @Override
     public int hashCode() {
@@ -58,6 +59,7 @@ public class Email {
         return hash;
     }
 
+    //equals
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

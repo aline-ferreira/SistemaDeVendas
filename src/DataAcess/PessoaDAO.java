@@ -34,7 +34,7 @@ public class PessoaDAO extends DAO{
                 sql.executeUpdate();
                 
                 PreparedStatement sql2 = getConexao().prepareStatement("select codPessoa from pessoa where nome = ? and DataNascimento = ?");
-                sql2.setString(1, obj.getNome());                
+                sql2.setString(1, obj.getNome());              
                 sql2.setDate(2, new java.sql.Date(obj.getDataNascimento().getTime()));
                 ResultSet resultado = sql2.executeQuery();
                 if(resultado.next()){
@@ -42,7 +42,7 @@ public class PessoaDAO extends DAO{
                 }
                 
                // Salva o email
-                for(Email e : obj.getEmails())
+                 for(Email e : obj.getEmails())
                 {
                     SalvarEmail(obj,e);
                 }
