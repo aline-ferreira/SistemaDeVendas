@@ -6,11 +6,13 @@ package acessandobd;
 
 import DataAcess.PessoaDAO;
 import DataAcess.ProdutoDAO;
+import DataAcess.VendaDAO;
 import DomainModel.Email;
 import DomainModel.Endereco;
 import DomainModel.Pessoa;
 import DomainModel.Telefone;
 import DomainModel.Produto;
+import DomainModel.Venda;
 import java.util.Date;
 
 /**
@@ -27,9 +29,9 @@ public class AcessandoBD {
         // TODO code application logic here
         Pessoa pessoa = new Pessoa();
         Produto produto= new Produto();
-        
-        
-       /* Telefone tel= new Telefone();
+        Venda venda= new Venda();
+        VendaDAO dao= new VendaDAO();
+        Telefone tel= new Telefone();
         Telefone tel2= new Telefone();
         
         Email email = new Email();
@@ -50,7 +52,7 @@ public class AcessandoBD {
         
         end2.setNumero(100);
         end2.setRua("Rua w");
-        end2.setBairro("Av. Felicidade");
+        end2.setBairro("castro");
         end2.setCidade("Paraiso");
         end2.setCep("00000-000");
         
@@ -61,7 +63,7 @@ public class AcessandoBD {
         end.setCep("39000-000");
         
         
-        pessoa.setNome("abcd");
+        pessoa.setNome("bruno");
         
         pessoa.setDataNascimento(new Date());
         
@@ -72,14 +74,14 @@ public class AcessandoBD {
         pessoa.addTelefone(tel);
         pessoa.addTelefone(tel2);
         
+        venda.setPessoa(pessoa);
+        venda.setValorTotal(100);
+        venda.setData(new Date());
         
-        
-        PessoaDAO dao = new PessoaDAO();
-        dao.Salvar(pessoa);*/
-        produto.setNome("notbook");
-        produto.setPreco(999.00);
-        ProdutoDAO dao=new ProdutoDAO();
-        dao.SalvarProduto(produto);
+        dao.SalvarVenda(venda);
+    
+       
+   
         
     }
 }
