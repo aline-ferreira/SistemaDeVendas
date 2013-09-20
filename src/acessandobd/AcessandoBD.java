@@ -30,9 +30,12 @@ public class AcessandoBD {
         Pessoa pessoa = new Pessoa();
         Produto produto= new Produto();
         Venda venda= new Venda();
-        VendaDAO dao= new VendaDAO();
+        
+        
+       VendaDAO dao= new VendaDAO();
         Telefone tel= new Telefone();
         Telefone tel2= new Telefone();
+        PessoaDAO dao2= new PessoaDAO();
         
         Email email = new Email();
         Email email2 = new Email();
@@ -63,7 +66,7 @@ public class AcessandoBD {
         end.setCep("39000-000");
         
         
-        pessoa.setNome("bruno");
+        pessoa.setNome("lucas");
         
         pessoa.setDataNascimento(new Date());
         
@@ -77,7 +80,7 @@ public class AcessandoBD {
         venda.setPessoa(pessoa);
         venda.setValorTotal(100);
         venda.setData(new Date());
-        
+        dao2.Salvar(pessoa);
         dao.SalvarVenda(venda);
     
        

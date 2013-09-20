@@ -8,41 +8,42 @@ import DomainModel.Pessoa;
 import java.sql.PreparedStatement;
 import DomainModel.Venda;
 import java.sql.Connection;
-import DataAcess.PessoaDAO;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Aline
  */
-public class VendaDAO extends PessoaDAO{
+public class VendaDAO extends DAO {
 
     public VendaDAO() {
         super();
     }
 
     public boolean SalvarVenda(Venda obj) {
-        Pessoa pessoa= new Pessoa();
-        
+        Pessoa pessoa = new Pessoa();
+        pessoa = obj.getPessoa();
         if (obj.getCodigo() == 0) {
             try {
-                Salvar(obj.getPessoa());
+                //Salvar(obj.getPessoa());
                 PreparedStatement sql = getConexao().prepareStatement("insert into venda(codPessoa,valor,data) values(?,?,?)");
-                pessoa=obj.getPessoa();
+
                 sql.setInt(1, pessoa.getCodigo());
                 sql.setDouble(2, obj.getValorTotal());
                 sql.setDate(3, new java.sql.Date(obj.getData().getTime()));
                 sql.executeUpdate();
-                
-                
-                 PreparedStatement sql2 = getConexao().prepareStatement("select codVenda from venda where valor= ? and data= ?");
-                sql2.setInt(1, obj.getPessoa().getCodigo());              
+
+
+                PreparedStatement sql2 = getConexao().prepareStatement("select codVenda from venda where valor= ? and data= ?");
+                sql2.setInt(1, obj.getPessoa().getCodigo());
                 sql2.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 ResultSet resultado = sql2.executeQuery();
-                if(resultado.next()){
+                if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
                 }
-                Salvar(obj.getPessoa());
+            //    Salvar(obj.getPessoa());
                 return true;
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -50,15 +51,15 @@ public class VendaDAO extends PessoaDAO{
             }
         } else {
             try {
-                Salvar(obj.getPessoa());
+                // Salvar(obj.getPessoa());
                 Connection con = getConexao();
                 PreparedStatement sql = con.prepareStatement("update venda set codPessoa=?, data=? , valor=? where codVenda=?");
-                sql.setInt(1, obj.getPessoa().getCodigo());
+                sql.setInt(1, pessoa.getCodigo());
                 sql.setDouble(3, obj.getValorTotal());
                 sql.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 sql.setDouble(4, obj.getCodigo());
-                
-               
+
+
                 sql.executeUpdate();
                 return true;
 
@@ -67,6 +68,79 @@ public class VendaDAO extends PessoaDAO{
                 return false;
             }
         }
-       
+
     }//salvar
+
+    // remover venda
+    public boolean RemoverVenda(Venda obj) {
+        if (obj.getCodigo() >= 0) {
+            try {
+                PreparedStatement sql = getConexao().prepareStatement("delete from venda where codVenda=?");
+                sql.setInt(1, obj.getCodigo());
+                //sql.setDate(2, new java.sql.Date( obj.getDataNascimento().getTime() ));
+                sql.executeUpdate();
+                return true;
+
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //salvar Item venda
+    public Venda AbrirVenda(int id) {
+        try {
+            PreparedStatement sql = getConexao().prepareStatement("select * from venda where codVenda=?");
+            sql.setInt(1, id);
+
+            ResultSet resultado = sql.executeQuery();
+
+            if (resultado.next()) {
+                Venda obj = new Venda();
+
+                obj.setCodigo(resultado.getInt("codVenda"));
+                obj.setValorTotal(resultado.getDouble("valor"));
+                obj.setData(resultado.getDate("data"));
+
+                return obj;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return null;
+        }
+     }
+    
+    //Listar
+      public List<Venda> ListarVendas() {
+        try {
+            PreparedStatement sql = getConexao().prepareStatement("select * from Venda");
+
+            ResultSet resultado = sql.executeQuery();
+
+            List<Venda> lista = new ArrayList<Venda>();
+
+            while (resultado.next()) {
+                  Venda obj = new Venda();
+                
+                obj.setCodigo(resultado.getInt("codVenda"));
+                obj.setValorTotal(resultado.getDouble("valor"));
+                obj.setData(resultado.getDate("data"));
+
+                
+
+                lista.add(obj);
+            }
+
+            return lista;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return null;
+        }
+    }
+    
 }
+

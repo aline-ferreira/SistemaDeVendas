@@ -29,9 +29,12 @@ public class Venda {
         this.itemVendas = new ArrayList<ItemVenda>();
     }
 
-    public void setCodigo(int codigoVenda) {
+    public void setCodigo(int codigoVenda)throws Exception {
         if(codigo>0){
           this.codigo = codigoVenda;
+        }else{
+             throw new Exception("codigo inválido!");
+            
         }
     }
 
