@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Aline
  */
-public class VendaDAO extends DAO {
+public class VendaDAO extends ProdutoDAO {
 
     public VendaDAO() {
         super();
@@ -45,6 +45,9 @@ public class VendaDAO extends DAO {
                 ResultSet resultado = sql2.executeQuery();
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
+                }
+                for (ItemVenda e : obj.getItemVendas()) {
+                    SalvarItemVenda(obj, e);
                 }
                 //    Salvar(obj.getPessoa());
                 return true;
@@ -145,14 +148,15 @@ public class VendaDAO extends DAO {
         }
     }
     
-     private void SalvarItemVenda(ItemVenda obj,Venda venda ){
+     private void SalvarItemVenda(Venda venda, ItemVenda obj ){
        
          Produto produto= new Produto();
          produto=obj.getProduto();
+         SalvarProduto(produto);
          
         if (obj.getCodigo() == 0) {
             try {
-                PreparedStatement sql = getConexao().prepareStatement("insert into itemVenda(codVenda,codProduto, quantidade) values(?,?,?)");
+                PreparedStatement sql = getConexao().prepareStatement("insert into itemvenda(codVenda,codProduto, quantidade) values(?,?,?)");
                 sql.setInt(1, venda.getCodigo());
                 sql.setInt(2, produto.getCodigo());
                 sql.setInt(3, obj.getQuantidade());
@@ -163,7 +167,7 @@ public class VendaDAO extends DAO {
             }
         } else {
             try {
-                PreparedStatement sql = getConexao().prepareStatement("update emails set codVenda = ?, codProduto = ? quantidade=? where codItemVenda= ?");
+                PreparedStatement sql = getConexao().prepareStatement("update set itemvenda codVenda = ?, codProduto = ? ,quantidade=? where codItemVenda= ?");
                 sql.setInt(1, venda.getCodigo());
                 sql.setInt(2, produto.getCodigo());
                 sql.setInt(3, obj.getQuantidade());

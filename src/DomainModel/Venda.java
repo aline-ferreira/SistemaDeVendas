@@ -38,6 +38,10 @@ public class Venda {
         }
     }
 
+    public List<ItemVenda> getItemVendas() {
+        return itemVendas;
+    }
+
     public Date getData() {
         return data;
     }
@@ -115,6 +119,10 @@ public class Venda {
             return false;
         }
         return true;
+    }
+
+    public Iterable<ItemVenda> getItemVenda() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
      
     

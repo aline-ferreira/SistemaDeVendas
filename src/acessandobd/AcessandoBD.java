@@ -9,6 +9,7 @@ import DataAcess.ProdutoDAO;
 import DataAcess.VendaDAO;
 import DomainModel.Email;
 import DomainModel.Endereco;
+import DomainModel.ItemVenda;
 import DomainModel.Pessoa;
 import DomainModel.Telefone;
 import DomainModel.Produto;
@@ -29,7 +30,8 @@ public class AcessandoBD {
         Pessoa pessoa = new Pessoa();
         Produto produto = new Produto();
         Venda venda = new Venda();
-
+        ItemVenda item=new ItemVenda();
+      
 
         VendaDAO dao = new VendaDAO();
         Telefone tel = new Telefone();
@@ -63,9 +65,13 @@ public class AcessandoBD {
         end.setBairro("Jussara");
         end.setCidade("Januaria");
         end.setCep("39000-000");
+        
+        produto.setNome("TV");
+        produto.setPreco(1500);
+        item.setProduto(produto);
+        item.setQuantidade(2);
 
-
-        pessoa.setNome("lucas");
+        pessoa.setNome("carla");
 
         pessoa.setDataNascimento(new Date());
 
@@ -76,8 +82,9 @@ public class AcessandoBD {
         pessoa.addTelefone(tel);
         pessoa.addTelefone(tel2);
 
+        venda.addItemVenda(item);
         venda.setPessoa(pessoa);
-        venda.setValorTotal(100);
+        venda.setValorTotal(3000);
         venda.setData(new Date());
         dao2.Salvar(pessoa);
         dao.SalvarVenda(venda);
