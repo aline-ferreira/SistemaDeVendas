@@ -46,7 +46,7 @@ public class VendaDAO extends ProdutoDAO {
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
                 }
-                 for (ItemVenda e : obj.getItemVendas()) {
+                  for (ItemVenda e : obj.getItemVendas()) {
                     SalvarItemVenda(obj, e);
                 }
                
