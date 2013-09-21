@@ -39,9 +39,11 @@ public class ItemVenda {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(int quantidade) throws Exception{
         if(quantidade>0){
           this.quantidade = quantidade;
+        }else{
+            throw new Exception(" Quantidades abaixo ou iguais a 0 não são aceitos!");
         }
     
   }

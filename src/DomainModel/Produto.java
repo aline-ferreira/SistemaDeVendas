@@ -21,9 +21,11 @@ public class Produto {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(int codigo)throws Exception {
         if (codigo >= 0) {
             this.codigo = codigo;
+        }else{
+            throw new Exception("Código Inválido!");
         }
     }
 
@@ -31,12 +33,15 @@ public class Produto {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome)throws Exception {
         Pattern patternNome = Pattern.compile("[a-z A-Z\\w\\s]{3,250}");
         Matcher comparar = patternNome.matcher(nome);
 
         if (comparar.matches()) {
             this.nome = nome;
+        }else{
+            throw new Exception("Formato de nome Inválido!(informe nomes com 3 ou mais caracteres)");
+            
         }
     }
 
@@ -46,10 +51,13 @@ public class Produto {
 
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(double preco) throws Exception {
         if (preco > 0) {
             this.preco = preco;
+        }else{
+            throw new Exception("Valor Insuficiente!(informe valores maiores que 0)!");
         }
+            
 
     }
     

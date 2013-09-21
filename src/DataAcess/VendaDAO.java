@@ -149,6 +149,7 @@ public class VendaDAO extends ProdutoDAO {
         }
     }
     
+    
      private void SalvarItemVenda(Venda venda, ItemVenda obj){
        
          Produto produto= new Produto();
