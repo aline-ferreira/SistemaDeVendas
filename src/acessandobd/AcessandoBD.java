@@ -31,6 +31,7 @@ public class AcessandoBD {
         Produto produto = new Produto();
         Venda venda = new Venda();
         ItemVenda item=new ItemVenda();
+        Produto produto2 = new Produto();
       
 
         VendaDAO dao = new VendaDAO();
@@ -67,11 +68,13 @@ public class AcessandoBD {
         end.setCidade("Januaria");
         end.setCep("39000-000");
         
-        produto.setNome("TV42");
+        produto.setNome("dvd");
         produto.setPreco(1500);
-        
+        produto2.setNome("hdExterno");
+        produto2.setPreco(350);
         item.setProduto(produto);
-        item.setQuantidade(2);
+        item.setProduto(produto2);
+        item.setQuantidade(1);
 
         pessoa.setNome("carla");
 
