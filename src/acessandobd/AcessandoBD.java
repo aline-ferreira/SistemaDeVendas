@@ -27,18 +27,18 @@ public class AcessandoBD {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        Pessoa pessoa = new Pessoa();
+       /* Pessoa pessoa = new Pessoa();
         Produto produto = new Produto();
         Venda venda = new Venda();
-        ItemVenda item=new ItemVenda();
+        ItemVenda item = new ItemVenda();
         Produto produto2 = new Produto();
-      
+
 
         VendaDAO dao = new VendaDAO();
         Telefone tel = new Telefone();
         Telefone tel2 = new Telefone();
         PessoaDAO dao2 = new PessoaDAO();
-        ProdutoDAO dao3= new ProdutoDAO();
+        ProdutoDAO dao3 = new ProdutoDAO();
 
         Email email = new Email();
         Email email2 = new Email();
@@ -67,7 +67,7 @@ public class AcessandoBD {
         end.setBairro("Jussara");
         end.setCidade("Januaria");
         end.setCep("39000-000");
-        
+
         produto.setNome("dvd");
         produto.setPreco(1500);
         produto2.setNome("hdExterno");
@@ -91,10 +91,10 @@ public class AcessandoBD {
         venda.setPessoa(pessoa);
         venda.setValorTotal(3000);
         venda.setData(new Date());
-        
+
         dao2.Salvar(pessoa);
-        dao.SalvarVenda(venda);
-        
+        dao.SalvarVenda(venda);*/
+
 
 
 
