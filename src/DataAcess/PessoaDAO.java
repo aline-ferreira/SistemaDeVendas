@@ -62,7 +62,7 @@ public class PessoaDAO extends DAO {
         } else {
             try {
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update Pessoa set Nome=?, DataNascimento=? where codPessoa=?");
+                PreparedStatement sql = con.prepareStatement("update Pessoa set nome=?, DataNascimento=? where codPessoa=?");
                 sql.setString(1, obj.getNome());
                 sql.setDate(2, new java.sql.Date(obj.getDataNascimento().getTime()));
                 sql.setInt(3, obj.getCodigo());

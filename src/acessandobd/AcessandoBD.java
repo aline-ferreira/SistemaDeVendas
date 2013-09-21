@@ -37,6 +37,7 @@ public class AcessandoBD {
         Telefone tel = new Telefone();
         Telefone tel2 = new Telefone();
         PessoaDAO dao2 = new PessoaDAO();
+        ProdutoDAO dao3= new ProdutoDAO();
 
         Email email = new Email();
         Email email2 = new Email();
@@ -66,8 +67,9 @@ public class AcessandoBD {
         end.setCidade("Januaria");
         end.setCep("39000-000");
         
-        produto.setNome("TV");
+        produto.setNome("TV42");
         produto.setPreco(1500);
+        dao3.SalvarProduto(produto);
         item.setProduto(produto);
         item.setQuantidade(2);
 
@@ -86,8 +88,10 @@ public class AcessandoBD {
         venda.setPessoa(pessoa);
         venda.setValorTotal(3000);
         venda.setData(new Date());
+        
         dao2.Salvar(pessoa);
         dao.SalvarVenda(venda);
+        
 
 
 

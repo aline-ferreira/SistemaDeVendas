@@ -46,9 +46,7 @@ public class VendaDAO extends ProdutoDAO {
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
                 }
-                for (ItemVenda e : obj.getItemVendas()) {
-                    SalvarItemVenda(obj, e);
-                }
+               
                 //    Salvar(obj.getPessoa());
                 return true;
             } catch (Exception ex) {
@@ -95,7 +93,7 @@ public class VendaDAO extends ProdutoDAO {
         return true;
     }
 
-    //salvar Item venda
+    //salvar abrir venda
     public Venda AbrirVenda(int id) {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from venda where codVenda=?");
@@ -148,7 +146,7 @@ public class VendaDAO extends ProdutoDAO {
         }
     }
     
-     private void SalvarItemVenda(Venda venda, ItemVenda obj ){
+     private void SalvarItemVenda(Venda venda, ItemVenda obj){
        
          Produto produto= new Produto();
          produto=obj.getProduto();

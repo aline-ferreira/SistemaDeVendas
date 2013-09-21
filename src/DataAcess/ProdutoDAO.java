@@ -36,7 +36,7 @@ public class ProdutoDAO extends DAO {
         }else{
              try {
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update produto set Nome=?,Preco=? where codProduto=?");
+                PreparedStatement sql = con.prepareStatement("update produto set nome=?,Preco=? where codProduto=?");
                 sql.setString(1, obj.getNome());
                 sql.setDouble(2, obj.getPreco());
                 sql.setInt(3, obj.getCodigo());
