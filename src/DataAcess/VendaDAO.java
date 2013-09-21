@@ -40,11 +40,14 @@ public class VendaDAO extends ProdutoDAO {
 
 
                 PreparedStatement sql2 = getConexao().prepareStatement("select codVenda from venda where valor= ? and data= ?");
-                sql2.setInt(1, obj.getPessoa().getCodigo());
+                sql2.setDouble(1, obj.getValorTotal());
                 sql2.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 ResultSet resultado = sql2.executeQuery();
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
+                }
+                 for (ItemVenda e : obj.getItemVendas()) {
+                    SalvarItemVenda(obj, e);
                 }
                
                 //    Salvar(obj.getPessoa());

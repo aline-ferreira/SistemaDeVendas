@@ -69,7 +69,7 @@ public class AcessandoBD {
         
         produto.setNome("TV42");
         produto.setPreco(1500);
-        dao3.SalvarProduto(produto);
+        
         item.setProduto(produto);
         item.setQuantidade(2);
 

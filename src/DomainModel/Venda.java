@@ -30,7 +30,7 @@ public class Venda {
     }
 
     public void setCodigo(int codigoVenda)throws Exception {
-        if(codigo>0){
+        if(codigo>=0){
           this.codigo = codigoVenda;
         }else{
              throw new Exception("codigo inválido!");
