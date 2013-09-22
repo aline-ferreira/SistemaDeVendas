@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Aline
  */
-public class VendaDAO extends ProdutoDAO {
+public class VendaDAO extends DAO {
 
     public VendaDAO() {
         super();
@@ -46,8 +46,9 @@ public class VendaDAO extends ProdutoDAO {
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
                 }
-                  for (ItemVenda e : obj.getItemVendas()) {
-                    SalvarItemVenda(obj, e);
+                 for(ItemVenda it : obj.getItemVendas())
+                {
+                    SalvarItemVenda(it.getProduto(), obj, it);
                 }
                
                 //    Salvar(obj.getPessoa());
@@ -66,7 +67,7 @@ public class VendaDAO extends ProdutoDAO {
                 sql.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 sql.setDouble(4, obj.getCodigo());
 
-
+                 
                 sql.executeUpdate();
                 return true;
 
@@ -78,7 +79,7 @@ public class VendaDAO extends ProdutoDAO {
 
     }//salvar
 
-    // remover venda
+    //remover venda
     public boolean RemoverVenda(Venda obj) {
         if (obj.getCodigo() >= 0) {
             try {
@@ -150,11 +151,13 @@ public class VendaDAO extends ProdutoDAO {
     }
     
     
-     private void SalvarItemVenda(Venda venda, ItemVenda obj){
+     private void SalvarItemVenda(Produto produto,Venda venda, ItemVenda obj){
        
-         Produto produto= new Produto();
-         produto=obj.getProduto();
-         SalvarProduto(produto);
+         //Produto produto= new Produto();
+         /*  SalvarProduto(produto);
+         */
+         //produto=obj.getProduto();
+        
          
         if (obj.getCodigo() == 0) {
             try {
@@ -169,7 +172,7 @@ public class VendaDAO extends ProdutoDAO {
             }
         } else {
             try {
-                PreparedStatement sql = getConexao().prepareStatement("update set itemvenda codVenda = ?, codProduto = ? ,quantidade=? where codItemVenda= ?");
+                PreparedStatement sql = getConexao().prepareStatement("update ItemVenda set codVenda = ?, codProduto = ? ,quantidade = ? where  codItemVenda = ?");
                 sql.setInt(1, venda.getCodigo());
                 sql.setInt(2, produto.getCodigo());
                 sql.setInt(3, obj.getQuantidade());
