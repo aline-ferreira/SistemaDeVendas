@@ -22,11 +22,11 @@ public class Produto {
     }
 
     public void setCodigo(int codigo)throws Exception {
-        if (codigo >= 0) {
+       if (codigo >= 0) {
             this.codigo = codigo;
-        }else{
-            throw new Exception("Código Inválido!");
-        }
+       }else{
+           throw new Exception("Código Inválido!");
+       }
     }
 
     public String getNome() {

@@ -46,9 +46,8 @@ public class VendaDAO extends DAO {
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codVenda"));
                 }
-                 for(ItemVenda it : obj.getItemVendas())
-                {
-                    SalvarItemVenda(it.getProduto(), obj, it);
+                for (ItemVenda e : obj.getItemVendas()) {
+                    SalvarItemVenda(obj, e);
                 }
                
                 //    Salvar(obj.getPessoa());
@@ -151,12 +150,12 @@ public class VendaDAO extends DAO {
     }
     
     
-     private void SalvarItemVenda(Produto produto,Venda venda, ItemVenda obj){
+     private void SalvarItemVenda(Venda venda, ItemVenda obj){
        
-         //Produto produto= new Produto();
-         /*  SalvarProduto(produto);
-         */
-         //produto=obj.getProduto();
+         Produto produto;
+        produto = new Produto();
+                
+         produto=obj.getProduto();
         
          
         if (obj.getCodigo() == 0) {

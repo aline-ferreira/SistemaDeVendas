@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author Aline
  */
 public class ProdutoDAO extends DAO {
-    
+
     public ProdutoDAO() {
         super();
     }
@@ -30,45 +30,32 @@ public class ProdutoDAO extends DAO {
         if (obj.getCodigo() == 0) {
             try {
                 PreparedStatement sql = getConexao().prepareStatement("insert into produto(nome,preco) values(?,?)");
-                sql.setString(1, obj.getNome());                
+                sql.setString(1, obj.getNome());
                 sql.setDouble(2, obj.getPreco());
                 sql.executeUpdate();
-                
-                PreparedStatement sql2 = getConexao().prepareStatement("select codProduto from produto where nome = ? and preco = ?");
+
+
+                PreparedStatement sql2 = getConexao().prepareStatement("select codProduto from Produto where nome= ? and preco=?");
                 sql2.setString(1, obj.getNome());
-                sql.setDouble(2, obj.getPreco());
+                sql2.setDouble(2, obj.getPreco());
+
                 ResultSet resultado = sql2.executeQuery();
-                
+
                 if (resultado.next()) {
                     obj.setCodigo(resultado.getInt("codProduto"));
                 }
-                return true;
-            } catch (Exception ex) {
-                System.err.print(ex.getMessage());            
-            }
-        }else{
-             try {
-                Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update produto set nome=?,preco=? where codProduto=?");
-                sql.setString(1, obj.getNome());
-                sql.setDouble(2, obj.getPreco());
-                sql.setInt(3, obj.getCodigo());
-                sql.executeUpdate();
-                
-                
-                return true;
 
+                return true;
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
                 return false;
             }
-            
         }
         return false;
-        
+
     }//salvar
-    
-     public boolean Remover(Produto obj) {
+
+    public boolean Remover(Produto obj) {
         if (obj.getCodigo() >= 0) {
             try {
                 PreparedStatement sql = getConexao().prepareStatement("delete from produto where codProduto=?");
@@ -99,7 +86,7 @@ public class ProdutoDAO extends DAO {
                 obj.setCodigo(resultado.getInt("codProduto"));
                 obj.setPreco(resultado.getDouble("preco"));
                 obj.setNome(resultado.getString("nome"));
-                
+
 
                 return obj;
             } else {
@@ -136,7 +123,4 @@ public class ProdutoDAO extends DAO {
             return null;
         }
     }
-
-    
-  
 }//fim classe
