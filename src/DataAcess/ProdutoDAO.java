@@ -33,6 +33,15 @@ public class ProdutoDAO extends DAO {
                 sql.setString(1, obj.getNome());                
                 sql.setDouble(2, obj.getPreco());
                 sql.executeUpdate();
+                
+                PreparedStatement sql2 = getConexao().prepareStatement("select codProduto from produto where nome = ? and preco = ?");
+                sql2.setString(1, obj.getNome());
+                sql.setDouble(2, obj.getPreco());
+                ResultSet resultado = sql2.executeQuery();
+                
+                if (resultado.next()) {
+                    obj.setCodigo(resultado.getInt("codProduto"));
+                }
                 return true;
             } catch (Exception ex) {
                 System.err.print(ex.getMessage());            
@@ -40,11 +49,13 @@ public class ProdutoDAO extends DAO {
         }else{
              try {
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update produto set nome=?,Preco=? where codProduto=?");
+                PreparedStatement sql = con.prepareStatement("update produto set nome=?,preco=? where codProduto=?");
                 sql.setString(1, obj.getNome());
                 sql.setDouble(2, obj.getPreco());
                 sql.setInt(3, obj.getCodigo());
                 sql.executeUpdate();
+                
+                
                 return true;
 
             } catch (Exception ex) {
@@ -87,7 +98,7 @@ public class ProdutoDAO extends DAO {
 
                 obj.setCodigo(resultado.getInt("codProduto"));
                 obj.setPreco(resultado.getDouble("preco"));
-                obj.setNome(resultado.getString("Nome"));
+                obj.setNome(resultado.getString("nome"));
                 
 
                 return obj;
