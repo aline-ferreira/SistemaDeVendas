@@ -62,7 +62,7 @@ public class AcessandoBD {
         end.setBairro("Jussara");
         end.setCidade("Januaria");
         end.setCep("39000-000");
-        pessoa.setNome("Maisa");
+        pessoa.setNome("Aline");
         pessoa.setDataNascimento(new Date());
         pessoa.addEmail(email);
         pessoa.addEmail(email2);
