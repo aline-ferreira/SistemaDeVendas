@@ -50,8 +50,21 @@ public class ProdutoDAO extends DAO {
                 System.err.println(ex.getMessage());
                 return false;
             }
+        }else {
+            try {
+                Connection con = getConexao();
+                PreparedStatement sql = con.prepareStatement("update Produto set nome=?, preco=? where codProduto=?");
+                sql.setString(1, obj.getNome());
+                sql.setDouble(3, obj.getPreco());
+                sql.executeUpdate();
+                return true;
+
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
         }
-        return false;
+        
 
     }//salvar
 

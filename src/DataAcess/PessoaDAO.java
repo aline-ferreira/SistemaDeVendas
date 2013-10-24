@@ -11,8 +11,14 @@ import DomainModel.Telefone;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -108,6 +114,9 @@ public class PessoaDAO extends DAO {
                 obj.setCodigo(resultado.getInt("codPessoa"));
                 obj.setNome(resultado.getString("Nome"));
                 obj.setDataNascimento(resultado.getDate("DataNascimento"));
+                AbrirTelefones(obj);
+                AbrirEmails(obj);
+                AbrirEnderecos(obj);
 
                 return obj;
             } else {
@@ -118,6 +127,8 @@ public class PessoaDAO extends DAO {
             return null;
         }
     }
+    
+
     // Listar 
 
     public List<Pessoa> ListarTodos() {
@@ -224,5 +235,216 @@ public class PessoaDAO extends DAO {
                 System.err.println(ex.getMessage());
             }
         }
+    }
+    
+     public void AbrirTelefones(Pessoa pessoa) {
+        try {
+            PreparedStatement sql = getConexao().prepareStatement("select * from telefones where codPessoa=?");
+            sql.setInt(1, pessoa.getCodigo());
+
+            ResultSet resultado = sql.executeQuery();
+
+            while (resultado.next()) {
+                pessoa.addTelefone(AbreTelefone(resultado));
+                
+
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private Telefone AbreTelefone(ResultSet resultado) {
+        Telefone tel = new Telefone();
+        try {
+            tel.setCodigo(resultado.getInt("codTelefone"));
+            //tel.setDDD(resultado.getByte("DDD"));
+           // tel.setOperadora(resultado.getByte("operadora"));
+            tel.setTelefone(resultado.getInt("telefone"));
+            return tel;
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+     public void AbrirEnderecos(Pessoa pessoa) {
+        try {
+            PreparedStatement sql = getConexao().prepareStatement("select * from enderecos where codPessoa=?");
+            sql.setInt(1, pessoa.getCodigo());
+
+            ResultSet resultado = sql.executeQuery();
+
+            while (resultado.next()) {
+               pessoa.addEndereco(AbreEndereco(resultado));
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+
+        }
+    }
+    
+    
+    private Endereco AbreEndereco(ResultSet resultado) {
+        Endereco end = new Endereco();
+        try {
+            //end.setCodigo(resultado.getInt("codEndereco"));
+            end.setCep(resultado.getString("cep"));
+            end.setCidade(resultado.getString("cidade"));
+            end.setBairro(resultado.getString("bairro"));
+             end.setRua(resultado.getString("rua"));
+            end.setNumero(resultado.getInt("numero"));
+            
+           
+            
+            
+           // end.setUf(resultado.getString("uf"));
+          //  end.setPais(resultado.getString("pais"));
+
+            return end;
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+     private Email AbreEmail(ResultSet resultado) {
+        Email email = new Email();
+        try {
+            email.setCodigo(resultado.getInt("codEmail"));
+            email.setEmail(resultado.getString("Email"));
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return email;
+
+    }
+
+    
+    public void AbrirEmails(Pessoa pessoa) {
+        try {
+            PreparedStatement sql = getConexao().prepareStatement("select * from emails where codpessoa=?");
+            sql.setInt(1, pessoa.getCodigo());
+
+            ResultSet resultado = sql.executeQuery();
+
+            while (resultado.next()) {
+                pessoa.addEmail(AbreEmail(resultado));
+
+            }
+        } catch (Exception ex) {
+        }
+    }
+
+
+
+    
+
+    /* public List<Pessoa> Buscar(Pessoa filtro){
+        
+     try {
+     String where="";
+     HashMap<String, Object> parametros=new  HashMap<String, Object>();
+     if (filtro!=null){
+     if(filtro.getCodigo()!=0){
+     where+= "id=:id";
+     parametros.put("id", where);                  
+     }
+                
+     if(filtro.getNome()!=null && filtro.getNome().length()>0){
+     if(where.length()>0){
+     where+= "and";
+     parametros.put("nome",filtro.getNome());
+                        
+     }
+     }
+     if(filtro.getDataNascimento()!=null ){
+     if(where.length()>0){
+     where+= "and";
+     parametros.put("nome",filtro.getNome());
+                        
+     }
+     }
+                
+     }
+     PreparedStatement sql = getConexao().prepareStatement("select * from Pessoa");
+
+     ResultSet resultado = sql.executeQuery();
+
+     List<Pessoa> lista = new ArrayList<Pessoa>();
+
+     while (resultado.next()) {
+     Pessoa obj = new Pessoa();
+
+     obj.setCodigo(resultado.getInt("codPessoa"));
+     obj.setNome(resultado.getString("Nome"));
+     obj.setDataNascimento(resultado.getDate("DataNascimento"));
+
+     lista.add(obj);
+     }
+
+     return lista;
+     } catch (Exception ex) {
+     System.err.println(ex.getMessage());
+     return null;
+     }*/
+    //}
+    public List<Pessoa> buscar(Pessoa filtro) throws Exception {
+        try {
+
+            String sql = "select * from pessoa ";
+            String where = "";
+
+            if (filtro.getNome().length() > 0) {
+                where = "nome like '%" + filtro.getNome() + "%'";
+            }
+
+            /* if (filtro.getValor() > 0) {
+             if(where.length() > 0) 
+             where = where + " and ";
+             where = where + " valor = " + filtro.getValor();
+             }*/
+            if (filtro.getDataNascimento() != null) {
+                if (where.length() > 0) {
+                    where += "and";
+                    where = where + " dataNascimento= " + filtro.getDataNascimento();
+
+                }
+            }
+                if (filtro.getCodigo() > 0) {
+                    if (where.length() > 0) {
+                        where = where + " and ";
+                        where = where + " CodPessoa = " + filtro.getCodigo();
+                    }
+                }
+
+                if (where.length() > 0) {
+                    sql = sql + " where " + where;
+                }
+
+                Statement comando = getConexao().createStatement();
+
+                ResultSet resultado = comando.executeQuery(sql);
+                // Cria uma lista de produtos vazia
+                List<Pessoa> pessoas = new LinkedList<>();
+                while (resultado.next()) {
+                    // Inicializa um objeto de produto vazio
+                    Pessoa tmp = new Pessoa();
+                    // Pega os valores do retorno da consulta e coloca no objeto
+                    tmp.setCodigo(resultado.getInt("codPessoa"));
+                    tmp.setNome(resultado.getString("nome"));
+                    tmp.setDataNascimento(resultado.getDate("dataNascimento"));
+                    //tmp.setValor(resultado.getDouble("valor"));
+                    // Pega o objeto e coloca na lista
+                    pessoas.add(tmp);
+                }
+                return pessoas;
+            }  catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+
     }
 }

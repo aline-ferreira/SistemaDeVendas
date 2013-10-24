@@ -57,4 +57,10 @@ public class Telefone {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Telefone{" + "Telefone=" + Telefone + '}';
+    }
+    
 }

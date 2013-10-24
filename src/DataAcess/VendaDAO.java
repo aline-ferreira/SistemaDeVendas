@@ -33,7 +33,7 @@ public class VendaDAO extends DAO {
                 //Salvar(obj.getPessoa());
                 PreparedStatement sql = getConexao().prepareStatement("insert into venda(codPessoa,valor,data) values(?,?,?)");
 
-                sql.setInt(1, pessoa.getCodigo());
+                sql.setInt(1, obj.getPessoa().getCodigo());
                 sql.setDouble(2, obj.getValorTotal());
                 sql.setDate(3, new java.sql.Date(obj.getData().getTime()));
                 sql.executeUpdate();
@@ -50,7 +50,7 @@ public class VendaDAO extends DAO {
                     SalvarItemVenda(obj, e);
                 }
                
-                //    Salvar(obj.getPessoa());
+                //Salvar(obj.getPessoa());
                 return true;
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -152,7 +152,7 @@ public class VendaDAO extends DAO {
     
      private void SalvarItemVenda(Venda venda, ItemVenda obj){
        
-         Produto produto;
+        Produto produto;
         produto = new Produto();
                 
          produto=obj.getProduto();

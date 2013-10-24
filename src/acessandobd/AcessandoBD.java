@@ -4,7 +4,7 @@
  */
 package acessandobd;
 
-import DataAcess.PessoaDAO;
+/*import DataAcess.PessoaDAO;
 import DataAcess.ProdutoDAO;
 import DataAcess.VendaDAO;
 import DomainModel.Email;
@@ -14,18 +14,13 @@ import DomainModel.Pessoa;
 import DomainModel.Telefone;
 import DomainModel.Produto;
 import DomainModel.Venda;
-import java.util.Date;
+import java.util.Date;*/
 
-/**
- *
- * @author Aline
- */
+
 public class AcessandoBD {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws Exception {
+    
+   /* public static void main(String[] args) throws Exception {
 
         //TESTE
 
@@ -45,11 +40,11 @@ public class AcessandoBD {
         Email email2 = new Email();
 
 
-        // Salvar Pessoa
+       // Salvar Pessoa
         Endereco end2 = new Endereco();
         Endereco end = new Endereco();
-        email.setEmail("alineferreira@hotmail.com");
-        email2.setEmail("ferreiraaline@gmail.com");
+        email.setEmail("felipe@hotmail.com");
+        email2.setEmail("fefefe@gmail.com");
         tel.setTelefone(99999999);
         tel2.setTelefone(36210000);
         end2.setNumero(100);
@@ -62,7 +57,7 @@ public class AcessandoBD {
         end.setBairro("Jussara");
         end.setCidade("Januaria");
         end.setCep("39000-000");
-        pessoa.setNome("Aline");
+        pessoa.setNome("Felipe");
         pessoa.setDataNascimento(new Date());
         pessoa.addEmail(email);
         pessoa.addEmail(email2);
@@ -71,10 +66,11 @@ public class AcessandoBD {
         pessoa.addTelefone(tel);
         pessoa.addTelefone(tel2);
         dao2.Salvar(pessoa);
+       
 
         //Salvar Produto
-        produto.setNome("netbook");
-        produto.setPreco(550);
+        produto.setNome("notebook");
+        produto.setPreco(999);
         dao3.SalvarProduto(produto);
 
         //Salvar Venda
@@ -85,6 +81,8 @@ public class AcessandoBD {
         venda.setValorTotal(item.getValor());
         venda.setData(new Date());
         dao.SalvarVenda(venda);
+       // pessoa= dao2.Abrir(7);
+        //dao2.Remover(pessoa);
 
 
 
@@ -92,7 +90,6 @@ public class AcessandoBD {
 
 
 
+    }*/
 
-
-    }
 }

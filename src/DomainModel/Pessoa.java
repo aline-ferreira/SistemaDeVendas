@@ -40,15 +40,15 @@ public class Pessoa {
     }
 
     public void setNome(String nome) throws Exception {
-        Pattern Nome = Pattern.compile("[\\w\\s]{3,}");
-        Matcher verifica = Nome.matcher(nome);
+       // Pattern Nome = Pattern.compile("[\\w\\s]{3,}");
+        //Matcher verifica = Nome.matcher(nome);
 
-        if (verifica.matches()) {
+        //if (verifica.matches()) {
             this.nome = nome;
-        } else {
-            throw new Exception("Formato de nome Inválido!");
+        //} else {
+            //throw new Exception("Formato de nome Inválido!");
 
-        }
+       // }
     }
 
     public Date getDataNascimento() {
@@ -156,5 +156,9 @@ public class Pessoa {
             return false;
         }
         return true;
+    }
+
+    public void setTelefone(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
